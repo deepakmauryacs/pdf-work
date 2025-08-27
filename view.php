@@ -83,6 +83,10 @@ $token = token_for($link['id'], $link['doc_id']);
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
 
+  .row{margin:0}
+  .col-md-12{padding:0}
+  .card{background:transparent;border:none}
+
   /* ===== Topbar ===== */
   .topbar{
     position:sticky; top:0; z-index:50;
@@ -282,9 +286,19 @@ $token = token_for($link['id'], $link['doc_id']);
     :root{ --sidebar-w: 250px; --divider-w: 8px; }
     .viewer{ width:min(980px, 100% - 64px) }
   }
+
+  @media (max-width:768px){
+    :root{ --sidebar-w:0; --divider-w:0; }
+    .shell{ grid-template-columns:1fr; }
+    #sidebar, .vbar{ display:none; }
+    .viewer{ width:100% !important; margin:16px auto; }
+  }
 </style>
 </head>
 <body>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
 
 <!-- Topbar -->
 <div class="topbar">
@@ -361,6 +375,9 @@ $token = token_for($link['id'], $link['doc_id']);
   <div id="doc" class="doc">
     <div class="viewer"></div>
     <div id="pageHUD" class="hud">1/1</div>
+  </div>
+  </div>
+    </div>
   </div>
 </div>
 
