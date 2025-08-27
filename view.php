@@ -17,6 +17,7 @@ if (!$link) { http_response_code(404); exit('Link not found'); }
 if ((int)$link['allow_view'] !== 1) { http_response_code(403); exit('Viewing disabled'); }
 
 $token = token_for($link['id'], $link['doc_id']);
+$createdDate = isset($link['created_at']) ? date('d-m-Y', strtotime($link['created_at'])) : date('d-m-Y');
 ?>
 <!doctype html>
 <html lang="en">
@@ -82,6 +83,12 @@ $token = token_for($link['id'], $link['doc_id']);
     font:14px/1.5 "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
+
+  .row{margin:0}
+  .col-md-12{padding:0}
+  .card{background:transparent;border:none}
+
+  .date-info{font-size:0.9rem}
 
   /* ===== Topbar ===== */
   .topbar{
@@ -282,14 +289,29 @@ $token = token_for($link['id'], $link['doc_id']);
     :root{ --sidebar-w: 250px; --divider-w: 8px; }
     .viewer{ width:min(980px, 100% - 64px) }
   }
+
+  @media (max-width:992px){
+    .viewer{ width:100% !important; margin:16px auto; }
+  }
+
+  @media (max-width:576px){
+    :root{ --sidebar-w:0; --divider-w:0; }
+    .shell{ grid-template-columns:1fr; }
+    #sidebar, .vbar{ display:none; }
+  }
 </style>
 </head>
 <body>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
 
 <!-- Topbar -->
 <div class="topbar">
   <button id="toggleSidebar" class="iconbtn" title="Toggle sidebar" aria-pressed="true">≡</button>
 
+  <div class="spacer"></div>
+  <div class="date-info"><?= $createdDate ?></div>
   <div class="spacer"></div>
 
   <div class="seg">
@@ -361,6 +383,9 @@ $token = token_for($link['id'], $link['doc_id']);
   <div id="doc" class="doc">
     <div class="viewer"></div>
     <div id="pageHUD" class="hud">1/1</div>
+  </div>
+  </div>
+    </div>
   </div>
 </div>
 
