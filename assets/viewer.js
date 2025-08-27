@@ -206,6 +206,13 @@ function scheduleRerender(){
 (function initSidebarToggle(){
   const shell=document.querySelector('.shell');
   async function apply(collapsed){
+    const mobile = window.matchMedia('(max-width:576px)').matches;
+    if(mobile){
+      collapsed = false;
+      els.toggleSidebar.style.display = 'none';
+    } else {
+      els.toggleSidebar.style.display = '';
+    }
     shell.classList.toggle('collapsed', collapsed);
     els.toggleSidebar.setAttribute('aria-pressed', (!collapsed).toString());
     try{ localStorage.setItem('pdfv_sidebar', collapsed?'1':'0'); }catch{}
@@ -218,6 +225,7 @@ function scheduleRerender(){
   // apply initial (does nothing harmful before pages exist)
   apply(collapsed);
   els.toggleSidebar.addEventListener('click', ()=> apply(!shell.classList.contains('collapsed')));
+  window.addEventListener('resize', ()=> apply(shell.classList.contains('collapsed')));
 })();
 
 // ----- wiring -----

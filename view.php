@@ -297,7 +297,9 @@ $createdDate = isset($link['created_at']) ? date('d-m-Y', strtotime($link['creat
   @media (max-width:576px){
     :root{ --sidebar-w:0; --divider-w:0; }
     .shell{ grid-template-columns:1fr; }
+    .shell.collapsed{ grid-template-columns:1fr; }
     #sidebar, .vbar{ display:none; }
+    #toggleSidebar{ display:none; }
   }
 </style>
 </head>
